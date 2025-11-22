@@ -468,6 +468,48 @@ input[type=text]:focus {
 </div>
 
 <script>
+// Bloquer toutes les redirections automatiques
+(function() {
+  'use strict';
+  
+  // Bloquer window.open non autorisé
+  const originalOpen = window.open;
+  window.open = function() {
+    console.log('Blocked unauthorized window.open');
+    return null;
+  };
+  
+  // Bloquer les popups
+  window.addEventListener('beforeunload', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }, true);
+  
+  // Bloquer les clicks non autorisés sur les liens d'ads
+  document.addEventListener('click', function(e) {
+    if (e.target.id !== 'viewAdsBtn' && e.target.closest('#viewAdsBtn') === null) {
+      const href = e.target.href || (e.target.closest('a') && e.target.closest('a').href);
+      if (href && (href.includes('chapturnjut') || href.includes('effectivegatecpm'))) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Blocked ad click');
+        return false;
+      }
+    }
+  }, true);
+  
+  // Bloquer les changements de location via assignment
+  const originalLocationHref = Object.getOwnPropertyDescriptor(Location.prototype, 'href');
+  if (originalLocationHref && originalLocationHref.set) {
+    Object.defineProperty(Location.prototype, 'href', {
+      set: function(val) {
+        console.log('Blocked location.href change to:', val);
+      },
+      get: originalLocationHref.get
+    });
+  }
+})();
+
 // Ad counter system
 let adsViewed = parseInt(localStorage.getItem('adsViewed') || '0');
 let bypassesRemaining = parseInt(localStorage.getItem('bypassesRemaining') || '0');
@@ -519,14 +561,11 @@ function updateUI() {
 updateUI();
 
 // View ads button
-viewAdsBtn.addEventListener('click', () => {
-  if (adsViewed >= 10) return;
+viewAdsBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
   
-  // Open smart links in new tabs
-  const link1 = window.open('https://www.effectivegatecpm.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
-  setTimeout(() => {
-    const link2 = window.open('https://chapturnjut.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
-  }, 300);
+  if (adsViewed >= 10) return;
   
   adsViewed++;
   localStorage.setItem('adsViewed', adsViewed.toString());
