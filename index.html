@@ -467,19 +467,6 @@ input[type=text]:focus {
   </div>
 </div>
 
-<!-- Ad Scripts -->
-<script type="text/javascript">
-    atOptions = {
-        'key' : '9cc021b05985950abf53b8a88eba34dd',
-        'format' : 'iframe',
-        'height' : 600,
-        'width' : 160,
-        'params' : {}
-    };
-</script>
-<script type="text/javascript" src="//chapturnjut.com/9cc021b05985950abf53b8a88eba34dd/invoke.js"></script>
-<script type='text/javascript' src='//chapturnjut.com/8f/71/0a/8f710abb841773d5f2e1358f41a46e66.js'></script>
-
 <script>
 // Ad counter system
 let adsViewed = parseInt(localStorage.getItem('adsViewed') || '0');
@@ -535,11 +522,11 @@ updateUI();
 viewAdsBtn.addEventListener('click', () => {
   if (adsViewed >= 10) return;
   
-  // Open both smart links
-  window.open('https://www.effectivegatecpm.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank');
+  // Open smart links in new tabs
+  const link1 = window.open('https://www.effectivegatecpm.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
   setTimeout(() => {
-    window.open('https://chapturnjut.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank');
-  }, 500);
+    const link2 = window.open('https://chapturnjut.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
+  }, 300);
   
   adsViewed++;
   localStorage.setItem('adsViewed', adsViewed.toString());
