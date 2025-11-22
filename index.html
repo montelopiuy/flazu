@@ -1,197 +1,698 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FLAZU BYPASS</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flazu Bypass</title>
 <style>
-    :root {
-        --accent: #7dfcc8;
-        --bg: #0c1220;
-        --card: rgba(255,255,255,0.06);
-        --glass: rgba(255,255,255,0.07);
-    }
+:root {
+  --accent: #00d4ff;
+  --accent-dark: #00a3cc;
+  --bg: #0a0e14;
+  --card-bg: rgba(15, 23, 42, 0.7);
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --success: #10b981;
+  --error: #ef4444;
+  --gradient-1: #00d4ff;
+  --gradient-2: #7c3aed;
+}
 
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        font-family: Inter, -apple-system, Segoe UI, Roboto, sans-serif;
-        background: linear-gradient(145deg, #0b0f1c, #101a33);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #f2f6ff;
-    }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 
-    .container {
-        width: 100%;
-        max-width: 500px;
-        padding: 30px;
-        border-radius: 18px;
-        background: var(--card);
-        backdrop-filter: blur(14px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-        animation: fadeIn 0.6s ease-out;
-    }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  background: linear-gradient(135deg, #0a0e14 0%, #1a1f2e 100%);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(18px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+/* Animated background */
+body::before {
+  content: '';
+  position: fixed;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+  animation: floatBackground 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
 
-    h1 {
-        text-align: center;
-        margin: 0 0 20px;
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--accent);
-        text-shadow: 0 0 12px rgba(125,252,200,0.5);
-    }
+@keyframes floatBackground {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(5deg); }
+  66% { transform: translate(-20px, 20px) rotate(-5deg); }
+}
 
-    input {
-        width: 100%;
-        padding: 14px;
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,0.08);
-        background: var(--glass);
-        color: white;
-        font-size: 15px;
-        outline: none;
-        transition: 0.2s;
-    }
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+}
 
-    input:focus {
-        border-color: var(--accent);
-        box-shadow: 0 0 8px rgba(125,252,200,0.4);
-    }
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--glass-border),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
 
-    button {
-        width: 100%;
-        padding: 14px;
-        margin-top: 12px;
-        border: none;
-        border-radius: 12px;
-        font-weight: 700;
-        font-size: 15px;
-        cursor: pointer;
-        background: var(--accent);
-        color: #0b0f1c;
-        transition: 0.2s;
-    }
+.card:hover {
+  transform: translateY(-4px);
+}
 
-    button:hover {
-        filter: brightness(1.15);
-        transform: translateY(-1px);
-    }
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
 
-    .output-box {
-        margin-top: 16px;
-        padding: 16px;
-        border-radius: 12px;
-        background: var(--glass);
-        border: 1px solid rgba(255,255,255,0.06);
-        display: none;
-    }
+h1 { 
+  font-size: 32px; 
+  font-weight: 800; 
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
 
-    .result {
-        font-family: monospace;
-        font-size: 14px;
-        word-break: break-all;
-        margin-bottom: 10px;
-    }
+.lead { 
+  font-size: 15px; 
+  color: var(--muted); 
+  line-height: 1.5;
+}
 
-    .copy-btn {
-        padding: 10px;
-        width: 100%;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        background: rgba(255,255,255,0.13);
-        color: var(--accent);
-        font-weight: 600;
-        transition: 0.2s;
-    }
+.input-wrapper {
+  position: relative;
+  margin-bottom: 16px;
+}
 
-    .copy-btn:hover {
-        background: rgba(255,255,255,0.2);
-    }
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 18px;
+}
 
-    .spinner {
-        margin-top: 14px;
-        display: none;
-        width: 26px;
-        height: 26px;
-        border: 4px solid rgba(255,255,255,0.15);
-        border-top-color: var(--accent);
-        border-radius: 50%;
-        animation: spin 0.7s linear infinite;
-    }
+input[type=text] {
+  width: 100%; 
+  padding: 16px 16px 16px 48px; 
+  border-radius: 16px; 
+  border: 1px solid var(--glass-border);
+  background: var(--glass); 
+  color: var(--text); 
+  font-size: 15px; 
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
 
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
+input[type=text]::placeholder { 
+  color: var(--muted); 
+}
+
+input[type=text]:focus { 
+  border-color: var(--accent);
+  background: rgba(0, 212, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+}
+
+.btn-primary {
+  width: 100%; 
+  padding: 16px; 
+  border: none; 
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  color: white; 
+  font-weight: 700; 
+  cursor: pointer;
+  font-size: 15px; 
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled { 
+  opacity: 0.5; 
+  cursor: not-allowed;
+  transform: none;
+}
+
+.status {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+}
+
+.status-text {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.output {
+  display: none;
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.output-label {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.result {
+  font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+  word-break: break-all;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.copy-btn {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  width: 100%;
+  background: var(--glass);
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.copy-btn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--accent);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 32px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.6),
+    0 0 0 1px var(--glass-border);
+  animation: modalSlideIn 0.4s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+canvas {
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+  display: block;
+  margin: 0 auto 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.slider {
+  width: 100%;
+  margin-top: 16px;
+  appearance: none;
+  height: 8px;
+  background: var(--glass);
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid var(--glass-border);
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
+}
+
+.verified-badge {
+  margin-top: 16px;
+  color: var(--success);
+  font-weight: 700;
+  display: none;
+  font-size: 16px;
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.puzzle-msg {
+  color: var(--muted);
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--error);
+  border-color: var(--error);
+  transform: rotate(90deg);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card {
+    padding: 28px 24px;
+    border-radius: 20px;
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  .modal {
+    padding: 24px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 16px;
+  }
+  
+  .card {
+    padding: 24px 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .lead {
+    font-size: 14px;
+  }
+  
+  input[type=text], .btn-primary {
+    font-size: 14px;
+  }
+}
 </style>
 </head>
-
 <body>
+
 <div class="container">
-    <h1>FLAZU BYPASS </h1>
-
-    <input id="urlInput" type="text" placeholder="Paste your link here..." />
-
-    <button id="bypassBtn">Bypass</button>
-
-    <div class="spinner" id="loader"></div>
-
-    <div class="output-box" id="outputBox">
-        <div class="result" id="outputText"></div>
-        <button class="copy-btn" id="copyBtn">Copy</button>
+  <div class="card">
+    <div class="header">
+      <h1>Flazu Bypass</h1>
+      <p class="lead">Paste a link, solve the puzzle, and get instant access</p>
     </div>
+    
+    <div class="input-wrapper">
+      <span class="input-icon">🔗</span>
+      <input id="urlInput" type="text" placeholder="Paste your link here..." aria-label="Link input">
+    </div>
+    
+    <button id="bypassBtn" class="btn-primary">Start Bypass</button>
+    
+    <div class="status">
+      <div id="inlineSpinner" style="display:none"><span class="spinner"></span></div>
+      <span id="statusText" class="status-text"></span>
+    </div>
+    
+    <div id="outputBox" class="output">
+      <div class="output-label">Your Result</div>
+      <div id="outText" class="result">—</div>
+      <button id="copyBtn" class="copy-btn">📋 Copy Result</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal-backdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="close-modal" id="closeModalBtn" aria-label="Close modal">×</button>
+    <h3 id="modalTitle">🧩 Prove You're Human</h3>
+    <canvas id="puzzleCanvas" width="320" height="140"></canvas>
+    <p id="puzzleMsg" class="puzzle-msg">Slide to fit the puzzle piece</p>
+    <input id="puzzleSlider" type="range" class="slider" min="0" max="260" value="0" aria-label="Slide puzzle piece">
+    <div id="verifiedText" class="verified-badge">✓ Verified — Processing...</div>
+  </div>
 </div>
 
 <script>
-const input = document.getElementById("urlInput");
-const btn = document.getElementById("bypassBtn");
-const loader = document.getElementById("loader");
-const outBox = document.getElementById("outputBox");
-const outText = document.getElementById("outputText");
-const copyBtn = document.getElementById("copyBtn");
+/* Puzzle logic */
+const modal = document.getElementById('modal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const canvas = document.getElementById('puzzleCanvas');
+const ctx = canvas.getContext('2d');
+const slider = document.getElementById('puzzleSlider');
+const verifiedText = document.getElementById('verifiedText');
+const puzzleMsg = document.getElementById('puzzleMsg');
+let holeX, holeY = 40, pieceW = 60, pieceH = 60, solved = false;
 
-btn.onclick = async () => {
-    const url = input.value.trim();
-    if (!url) return alert("Please paste a link first.");
+function resetPuzzle() {
+  solved = false;
+  verifiedText.style.display = 'none';
+  puzzleMsg.style.display = 'block';
+  slider.value = 0;
+  holeX = Math.floor(Math.random() * (canvas.width - pieceW - 80)) + 40;
+  drawPuzzle(0);
+}
 
-    outBox.style.display = "none";
-    loader.style.display = "block";
+function drawPuzzle(pieceX) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  grad.addColorStop(0, '#e0e7ff');
+  grad.addColorStop(1, '#f0f4ff');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Subtle pattern
+  ctx.globalAlpha = 0.04;
+  ctx.fillStyle = '#000';
+  for (let i = -canvas.height; i < canvas.width; i += 20) {
+    ctx.fillRect(i, 0, 1, canvas.height);
+  }
+  ctx.globalAlpha = 1;
+  
+  // Hole
+  ctx.shadowColor = 'rgba(0,0,0,0.2)';
+  ctx.shadowBlur = 12;
+  ctx.shadowOffsetY = 2;
+  roundRect(ctx, holeX, holeY, pieceW, pieceH, 10, '#c7d2fe');
+  ctx.shadowColor = 'transparent';
+  
+  // Piece
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,0.25)';
+  ctx.shadowBlur = 16;
+  ctx.shadowOffsetY = 4;
+  
+  const pieceGrad = ctx.createLinearGradient(pieceX, holeY, pieceX + pieceW, holeY + pieceH);
+  pieceGrad.addColorStop(0, '#00d4ff');
+  pieceGrad.addColorStop(1, '#7c3aed');
+  
+  roundRect(ctx, pieceX, holeY, pieceW, pieceH, 10, pieceGrad);
+  ctx.restore();
+  
+  // Piece accent
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.beginPath();
+  ctx.arc(pieceX + pieceW - 16, holeY + 16, 10, 0, Math.PI * 2);
+  ctx.fill();
+}
 
-    try {
-        const api = `https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`;
-        const res = await fetch(api);
-        const text = await res.text();
+function roundRect(ctx, x, y, w, h, r, fill) {
+  if (typeof fill === 'string') {
+    ctx.fillStyle = fill;
+  } else {
+    ctx.fillStyle = fill;
+  }
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  ctx.fill();
+}
 
-        let parsed;
-        try { parsed = JSON.parse(text); } catch {}
+slider.addEventListener('input', () => {
+  const x = parseInt(slider.value, 10);
+  drawPuzzle(x);
+  if (!solved && Math.abs(x - holeX) <= 4) {
+    solved = true;
+    puzzleMsg.style.display = 'none';
+    verifiedText.style.display = 'block';
+    setTimeout(() => {
+      closeModal();
+      startBypass();
+    }, 650);
+  }
+});
 
-        const result = parsed?.url || parsed?.key || parsed || text;
+function closeModal() {
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+}
 
-        outText.textContent = result;
-        outBox.style.display = "block";
-    } catch (err) {
-        outText.textContent = "Error: " + err.message;
-        outBox.style.display = "block";
-    }
+/* UI Elements */
+const bypassBtn = document.getElementById('bypassBtn');
+const urlInput = document.getElementById('urlInput');
+const inlineSpinner = document.getElementById('inlineSpinner');
+const statusText = document.getElementById('statusText');
+const outputBox = document.getElementById('outputBox');
+const outText = document.getElementById('outText');
+const copyBtn = document.getElementById('copyBtn');
 
-    loader.style.display = "none";
-};
+bypassBtn.addEventListener('click', () => {
+  const val = urlInput.value.trim();
+  if (!val) {
+    alert('Please paste a link first.');
+    urlInput.focus();
+    return;
+  }
+  try {
+    new URL(val);
+  } catch {
+    alert('Please enter a valid URL.');
+    urlInput.focus();
+    return;
+  }
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden', 'false');
+  resetPuzzle();
+  slider.max = canvas.width - pieceW;
+  setTimeout(() => slider.focus(), 220);
+});
 
-copyBtn.onclick = () => {
-    navigator.clipboard.writeText(outText.textContent);
-    copyBtn.textContent = "Copied!";
-    setTimeout(() => copyBtn.textContent = "Copy", 1400);
-};
+closeModalBtn.addEventListener('click', closeModal);
+
+async function startBypass() {
+  bypassBtn.disabled = true;
+  inlineSpinner.style.display = 'inline-block';
+  statusText.textContent = 'Calling bypass API...';
+  outputBox.style.display = 'none';
+  outText.textContent = '';
+  const url = urlInput.value.trim();
+  try {
+    const t0 = performance.now();
+    const resp = await fetch(`https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`);
+    const t1 = performance.now();
+    const elapsed = Math.round(t1 - t0);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const text = await resp.text();
+    let parsed;
+    try { parsed = JSON.parse(text); } catch { parsed = null; }
+    const result = (parsed && (parsed.url || parsed.key || parsed.result)) || text || 'No result';
+    outText.textContent = result;
+    outputBox.style.display = 'block';
+    statusText.textContent = `✓ Success — ${elapsed}ms`;
+    statusText.style.color = 'var(--success)';
+  } catch (err) {
+    outText.textContent = `Error: ${err.message || err}`;
+    outputBox.style.display = 'block';
+    statusText.textContent = '✗ Request failed';
+    statusText.style.color = 'var(--error)';
+  } finally {
+    inlineSpinner.style.display = 'none';
+    bypassBtn.disabled = false;
+  }
+}
+
+copyBtn.addEventListener('click', () => {
+  const text = outText.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    copyBtn.textContent = '✓ Copied!';
+    setTimeout(() => copyBtn.textContent = '📋 Copy Result', 1400);
+  }).catch(() => {
+    alert('Unable to copy automatically — select and copy manually.');
+  });
+});
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && modal.style.display !== 'flex') {
+    bypassBtn.click();
+  } else if (e.key === 'Escape' && modal.style.display === 'flex') {
+    closeModalBtn.click();
+  }
+});
+
+(function init() {
+  const DPR = window.devicePixelRatio || 1;
+  canvas.width = 320 * DPR;
+  canvas.height = 140 * DPR;
+  canvas.style.width = '320px';
+  canvas.style.height = '140px';
+  ctx.scale(DPR, DPR);
+  resetPuzzle();
+})();
 </script>
-
 </body>
 </html>
