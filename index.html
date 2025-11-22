@@ -16,6 +16,7 @@
   --muted: #94a3b8;
   --success: #10b981;
   --error: #ef4444;
+  --warning: #f59e0b;
   --gradient-1: #00d4ff;
   --gradient-2: #7c3aed;
 }
@@ -190,6 +191,91 @@ input[type=text]:focus {
   transform: none;
 }
 
+.btn-ads {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.btn-ads::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-ads:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+}
+
+.btn-ads:hover::before {
+  left: 100%;
+}
+
+.btn-ads:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ads-counter {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.counter-display {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.counter-label {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.progress-bar {
+  margin-top: 12px;
+  height: 8px;
+  background: var(--glass);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
+}
+
 .status {
   margin-top: 16px;
   display: flex;
@@ -278,148 +364,25 @@ input[type=text]:focus {
   border-color: var(--accent);
 }
 
-/* Modal */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
-  z-index: 100;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal {
-  background: var(--card-bg);
-  backdrop-filter: blur(24px);
-  border-radius: 24px;
-  padding: 32px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  position: relative;
-  box-shadow: 
-    0 24px 80px rgba(0, 0, 0, 0.6),
-    0 0 0 1px var(--glass-border);
-  animation: modalSlideIn 0.4s ease;
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9) translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-.modal h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 24px;
-  color: var(--text);
-}
-
-canvas {
+.info-box {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: 16px;
-  background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
-  display: block;
-  margin: 0 auto 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-.slider {
-  width: 100%;
-  margin-top: 16px;
-  appearance: none;
-  height: 8px;
-  background: var(--glass);
-  border-radius: 4px;
-  outline: none;
-  border: 1px solid var(--glass-border);
-}
-
-.slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
-  transition: transform 0.2s ease;
-}
-
-.slider::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
-}
-
-.slider::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-  border-radius: 50%;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
-}
-
-.verified-badge {
-  margin-top: 16px;
-  color: var(--success);
-  font-weight: 700;
   display: none;
-  font-size: 16px;
-  animation: bounceIn 0.5s ease;
 }
 
-@keyframes bounceIn {
-  0% { transform: scale(0); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+.info-box.show {
+  display: block;
+  animation: slideIn 0.4s ease;
 }
 
-.puzzle-msg {
-  color: var(--muted);
-  margin-top: 12px;
-  margin-bottom: 8px;
+.info-text {
   font-size: 14px;
-}
-
-.close-modal {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: var(--muted);
-  font-weight: 700;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.close-modal:hover {
-  background: rgba(239, 68, 68, 0.2);
-  color: var(--error);
-  border-color: var(--error);
-  transform: rotate(90deg);
+  color: var(--warning);
+  text-align: center;
+  line-height: 1.5;
 }
 
 /* Responsive */
@@ -431,11 +394,6 @@ canvas {
   
   h1 {
     font-size: 28px;
-  }
-  
-  .modal {
-    padding: 24px;
-    border-radius: 20px;
   }
 }
 
@@ -456,8 +414,12 @@ canvas {
     font-size: 14px;
   }
   
-  input[type=text], .btn-primary {
+  input[type=text], .btn-primary, .btn-ads {
     font-size: 14px;
+  }
+  
+  .counter-display {
+    font-size: 24px;
   }
 }
 </style>
@@ -468,15 +430,29 @@ canvas {
   <div class="card">
     <div class="header">
       <h1>Flazu Bypass</h1>
-      <p class="lead">Paste a link, solve the puzzle, and get instant access</p>
+      <p class="lead">View 10 ads to unlock 20 free bypasses</p>
     </div>
     
-    <div class="input-wrapper">
+    <div class="ads-counter">
+      <div class="counter-display" id="counterDisplay">0 / 10</div>
+      <div class="counter-label">Ads Viewed</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+    
+    <button id="viewAdsBtn" class="btn-ads">📺 View Ads</button>
+    
+    <div id="infoBox" class="info-box">
+      <p class="info-text">⚡ Click "View Ads" 10 times to unlock bypass feature!</p>
+    </div>
+    
+    <div class="input-wrapper" style="margin-top: 20px;">
       <span class="input-icon">🔗</span>
-      <input id="urlInput" type="text" placeholder="Paste your link here..." aria-label="Link input">
+      <input id="urlInput" type="text" placeholder="Paste your link here..." aria-label="Link input" disabled>
     </div>
     
-    <button id="bypassBtn" class="btn-primary">Start Bypass</button>
+    <button id="bypassBtn" class="btn-primary" disabled>🔒 Locked - View Ads First</button>
     
     <div class="status">
       <div id="inlineSpinner" style="display:none"><span class="spinner"></span></div>
@@ -491,126 +467,97 @@ canvas {
   </div>
 </div>
 
-<div id="modal" class="modal-backdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="close-modal" id="closeModalBtn" aria-label="Close modal">×</button>
-    <h3 id="modalTitle">🧩 Prove You're Human</h3>
-    <canvas id="puzzleCanvas" width="320" height="140"></canvas>
-    <p id="puzzleMsg" class="puzzle-msg">Slide to fit the puzzle piece</p>
-    <input id="puzzleSlider" type="range" class="slider" min="0" max="260" value="0" aria-label="Slide puzzle piece">
-    <div id="verifiedText" class="verified-badge">✓ Verified — Processing...</div>
-  </div>
-</div>
+<!-- Ad Scripts -->
+<script type="text/javascript">
+    atOptions = {
+        'key' : '9cc021b05985950abf53b8a88eba34dd',
+        'format' : 'iframe',
+        'height' : 600,
+        'width' : 160,
+        'params' : {}
+    };
+</script>
+<script type="text/javascript" src="//chapturnjut.com/9cc021b05985950abf53b8a88eba34dd/invoke.js"></script>
+<script type='text/javascript' src='//chapturnjut.com/8f/71/0a/8f710abb841773d5f2e1358f41a46e66.js'></script>
 
 <script>
-/* Puzzle logic */
-const modal = document.getElementById('modal');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const canvas = document.getElementById('puzzleCanvas');
-const ctx = canvas.getContext('2d');
-const slider = document.getElementById('puzzleSlider');
-const verifiedText = document.getElementById('verifiedText');
-const puzzleMsg = document.getElementById('puzzleMsg');
-let holeX, holeY = 40, pieceW = 60, pieceH = 60, solved = false;
+// Ad counter system
+let adsViewed = parseInt(localStorage.getItem('adsViewed') || '0');
+let bypassesRemaining = parseInt(localStorage.getItem('bypassesRemaining') || '0');
 
-function resetPuzzle() {
-  solved = false;
-  verifiedText.style.display = 'none';
-  puzzleMsg.style.display = 'block';
-  slider.value = 0;
-  holeX = Math.floor(Math.random() * (canvas.width - pieceW - 80)) + 40;
-  drawPuzzle(0);
-}
-
-function drawPuzzle(pieceX) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  // Background gradient
-  const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  grad.addColorStop(0, '#e0e7ff');
-  grad.addColorStop(1, '#f0f4ff');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  
-  // Subtle pattern
-  ctx.globalAlpha = 0.04;
-  ctx.fillStyle = '#000';
-  for (let i = -canvas.height; i < canvas.width; i += 20) {
-    ctx.fillRect(i, 0, 1, canvas.height);
-  }
-  ctx.globalAlpha = 1;
-  
-  // Hole
-  ctx.shadowColor = 'rgba(0,0,0,0.2)';
-  ctx.shadowBlur = 12;
-  ctx.shadowOffsetY = 2;
-  roundRect(ctx, holeX, holeY, pieceW, pieceH, 10, '#c7d2fe');
-  ctx.shadowColor = 'transparent';
-  
-  // Piece
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.25)';
-  ctx.shadowBlur = 16;
-  ctx.shadowOffsetY = 4;
-  
-  const pieceGrad = ctx.createLinearGradient(pieceX, holeY, pieceX + pieceW, holeY + pieceH);
-  pieceGrad.addColorStop(0, '#00d4ff');
-  pieceGrad.addColorStop(1, '#7c3aed');
-  
-  roundRect(ctx, pieceX, holeY, pieceW, pieceH, 10, pieceGrad);
-  ctx.restore();
-  
-  // Piece accent
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.beginPath();
-  ctx.arc(pieceX + pieceW - 16, holeY + 16, 10, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-function roundRect(ctx, x, y, w, h, r, fill) {
-  if (typeof fill === 'string') {
-    ctx.fillStyle = fill;
-  } else {
-    ctx.fillStyle = fill;
-  }
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
-  ctx.fill();
-}
-
-slider.addEventListener('input', () => {
-  const x = parseInt(slider.value, 10);
-  drawPuzzle(x);
-  if (!solved && Math.abs(x - holeX) <= 4) {
-    solved = true;
-    puzzleMsg.style.display = 'none';
-    verifiedText.style.display = 'block';
-    setTimeout(() => {
-      closeModal();
-      startBypass();
-    }, 650);
-  }
-});
-
-function closeModal() {
-  modal.style.display = 'none';
-  modal.setAttribute('aria-hidden', 'true');
-}
-
-/* UI Elements */
+const viewAdsBtn = document.getElementById('viewAdsBtn');
+const counterDisplay = document.getElementById('counterDisplay');
+const progressFill = document.getElementById('progressFill');
 const bypassBtn = document.getElementById('bypassBtn');
 const urlInput = document.getElementById('urlInput');
+const infoBox = document.getElementById('infoBox');
 const inlineSpinner = document.getElementById('inlineSpinner');
 const statusText = document.getElementById('statusText');
 const outputBox = document.getElementById('outputBox');
 const outText = document.getElementById('outText');
 const copyBtn = document.getElementById('copyBtn');
 
+// Initialize UI
+function updateUI() {
+  counterDisplay.textContent = `${Math.min(adsViewed, 10)} / 10`;
+  progressFill.style.width = `${Math.min((adsViewed / 10) * 100, 100)}%`;
+  
+  if (adsViewed >= 10 || bypassesRemaining > 0) {
+    bypassBtn.disabled = false;
+    bypassBtn.textContent = `🚀 Start Bypass (${bypassesRemaining} remaining)`;
+    urlInput.disabled = false;
+    viewAdsBtn.style.display = 'none';
+    infoBox.classList.remove('show');
+    // Hide ads counter when unlocked
+    document.querySelector('.ads-counter').style.display = 'none';
+  } else {
+    bypassBtn.disabled = true;
+    bypassBtn.textContent = '🔒 Locked - View Ads First';
+    urlInput.disabled = true;
+    infoBox.classList.add('show');
+    document.querySelector('.ads-counter').style.display = 'block';
+  }
+  
+  if (adsViewed >= 10 && bypassesRemaining === 0) {
+    bypassesRemaining = 20;
+    localStorage.setItem('bypassesRemaining', '20');
+    statusText.textContent = '🎉 Unlocked 20 bypasses!';
+    statusText.style.color = 'var(--success)';
+    setTimeout(() => {
+      statusText.textContent = '';
+    }, 3000);
+  }
+}
+
+updateUI();
+
+// View ads button
+viewAdsBtn.addEventListener('click', () => {
+  if (adsViewed >= 10) return;
+  
+  // Open both smart links
+  window.open('https://www.effectivegatecpm.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank');
+  setTimeout(() => {
+    window.open('https://chapturnjut.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank');
+  }, 500);
+  
+  adsViewed++;
+  localStorage.setItem('adsViewed', adsViewed.toString());
+  
+  // Visual feedback
+  viewAdsBtn.textContent = `✓ Ad ${adsViewed} Viewed!`;
+  viewAdsBtn.disabled = true;
+  
+  setTimeout(() => {
+    viewAdsBtn.textContent = '📺 View Ads';
+    viewAdsBtn.disabled = false;
+    updateUI();
+  }, 2000);
+  
+  updateUI();
+});
+
+// Bypass button
 bypassBtn.addEventListener('click', () => {
   const val = urlInput.value.trim();
   if (!val) {
@@ -625,14 +572,14 @@ bypassBtn.addEventListener('click', () => {
     urlInput.focus();
     return;
   }
-  modal.style.display = 'flex';
-  modal.setAttribute('aria-hidden', 'false');
-  resetPuzzle();
-  slider.max = canvas.width - pieceW;
-  setTimeout(() => slider.focus(), 220);
+  
+  if (bypassesRemaining <= 0) {
+    alert('No bypasses remaining! View more ads to unlock.');
+    return;
+  }
+  
+  startBypass();
 });
-
-closeModalBtn.addEventListener('click', closeModal);
 
 async function startBypass() {
   bypassBtn.disabled = true;
@@ -641,6 +588,7 @@ async function startBypass() {
   outputBox.style.display = 'none';
   outText.textContent = '';
   const url = urlInput.value.trim();
+  
   try {
     const t0 = performance.now();
     const resp = await fetch(`https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`);
@@ -651,10 +599,27 @@ async function startBypass() {
     let parsed;
     try { parsed = JSON.parse(text); } catch { parsed = null; }
     const result = (parsed && (parsed.url || parsed.key || parsed.result)) || text || 'No result';
+    
     outText.textContent = result;
     outputBox.style.display = 'block';
     statusText.textContent = `✓ Success — ${elapsed}ms`;
     statusText.style.color = 'var(--success)';
+    
+    // Decrease bypass count
+    bypassesRemaining--;
+    localStorage.setItem('bypassesRemaining', bypassesRemaining.toString());
+    
+    if (bypassesRemaining === 0) {
+      adsViewed = 0;
+      localStorage.setItem('adsViewed', '0');
+      setTimeout(() => {
+        alert('All bypasses used! View 10 more ads to unlock 20 new bypasses.');
+        viewAdsBtn.style.display = 'block';
+        document.querySelector('.ads-counter').style.display = 'block';
+      }, 1000);
+    }
+    
+    updateUI();
   } catch (err) {
     outText.textContent = `Error: ${err.message || err}`;
     outputBox.style.display = 'block';
@@ -663,6 +628,7 @@ async function startBypass() {
   } finally {
     inlineSpinner.style.display = 'none';
     bypassBtn.disabled = false;
+    updateUI();
   }
 }
 
@@ -677,22 +643,10 @@ copyBtn.addEventListener('click', () => {
 });
 
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && modal.style.display !== 'flex') {
+  if (e.key === 'Enter' && !bypassBtn.disabled && urlInput.value.trim()) {
     bypassBtn.click();
-  } else if (e.key === 'Escape' && modal.style.display === 'flex') {
-    closeModalBtn.click();
   }
 });
-
-(function init() {
-  const DPR = window.devicePixelRatio || 1;
-  canvas.width = 320 * DPR;
-  canvas.height = 140 * DPR;
-  canvas.style.width = '320px';
-  canvas.style.height = '140px';
-  ctx.scale(DPR, DPR);
-  resetPuzzle();
-})();
 </script>
 </body>
 </html>
