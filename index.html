@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FLAZU BYPASS</title>
+
+<style>
+    :root {
+        --accent: #7dfcc8;
+        --bg: #0c1220;
+        --card: rgba(255,255,255,0.06);
+        --glass: rgba(255,255,255,0.07);
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        font-family: Inter, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: linear-gradient(145deg, #0b0f1c, #101a33);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #f2f6ff;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        border-radius: 18px;
+        background: var(--card);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+        text-align: center;
+        margin: 0 0 20px;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--accent);
+        text-shadow: 0 0 12px rgba(125,252,200,0.5);
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: var(--glass);
+        color: white;
+        font-size: 15px;
+        outline: none;
+        transition: 0.2s;
+    }
+
+    input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 8px rgba(125,252,200,0.4);
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 12px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+        background: var(--accent);
+        color: #0b0f1c;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        filter: brightness(1.15);
+        transform: translateY(-1px);
+    }
+
+    .output-box {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--glass);
+        border: 1px solid rgba(255,255,255,0.06);
+        display: none;
+    }
+
+    .result {
+        font-family: monospace;
+        font-size: 14px;
+        word-break: break-all;
+        margin-bottom: 10px;
+    }
+
+    .copy-btn {
+        padding: 10px;
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        background: rgba(255,255,255,0.13);
+        color: var(--accent);
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .copy-btn:hover {
+        background: rgba(255,255,255,0.2);
+    }
+
+    .spinner {
+        margin-top: 14px;
+        display: none;
+        width: 26px;
+        height: 26px;
+        border: 4px solid rgba(255,255,255,0.15);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>FLAZU BYPASS </h1>
+
+    <input id="urlInput" type="text" placeholder="Paste your link here..." />
+
+    <button id="bypassBtn">Bypass</button>
+
+    <div class="spinner" id="loader"></div>
+
+    <div class="output-box" id="outputBox">
+        <div class="result" id="outputText"></div>
+        <button class="copy-btn" id="copyBtn">Copy</button>
+    </div>
+</div>
+
+<script>
+const input = document.getElementById("urlInput");
+const btn = document.getElementById("bypassBtn");
+const loader = document.getElementById("loader");
+const outBox = document.getElementById("outputBox");
+const outText = document.getElementById("outputText");
+const copyBtn = document.getElementById("copyBtn");
+
+btn.onclick = async () => {
+    const url = input.value.trim();
+    if (!url) return alert("Please paste a link first.");
+
+    outBox.style.display = "none";
+    loader.style.display = "block";
+
+    try {
+        const api = `https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`;
+        const res = await fetch(api);
+        const text = await res.text();
+
+        let parsed;
+        try { parsed = JSON.parse(text); } catch {}
+
+        const result = parsed?.url || parsed?.key || parsed || text;
+
+        outText.textContent = result;
+        outBox.style.display = "block";
+    } catch (err) {
+        outText.textContent = "Error: " + err.message;
+        outBox.style.display = "block";
+    }
+
+    loader.style.display = "none";
+};
+
+copyBtn.onclick = () => {
+    navigator.clipboard.writeText(outText.textContent);
+    copyBtn.textContent = "Copied!";
+    setTimeout(() => copyBtn.textContent = "Copy", 1400);
+};
+</script>
+
+</body>
+</html>
