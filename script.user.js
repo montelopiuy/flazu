@@ -11,8 +11,6 @@
 // @match        *://*.lootdest.info/*
 // @match        *://*.rekonise.com/*
 // @match        *://*.platoboost.app/*
-// @match        *://adf.ly/*
-// @match        *://*.adf.ly/*
 // @grant        GM_addStyle
 // @run-at       document-end
 // ==/UserScript==
