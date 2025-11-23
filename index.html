@@ -40,7 +40,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Animated background */
 body::before {
   content: '';
   position: fixed;
@@ -107,6 +106,216 @@ h1 {
   line-height: 1.5;
 }
 
+.bypass-selector {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+.selector-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.slider-value {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.slider-sublabel {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.range-slider {
+  width: 100%;
+  appearance: none;
+  height: 10px;
+  background: var(--glass);
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid var(--glass-border);
+}
+
+.range-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.range-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
+}
+
+.ads-info {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.ads-info-text {
+  font-size: 14px;
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.btn-primary {
+  width: 100%; 
+  padding: 16px; 
+  border: none; 
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  color: white; 
+  font-weight: 700; 
+  cursor: pointer;
+  font-size: 15px; 
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:disabled { 
+  opacity: 0.5; 
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-ads {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ads::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-ads:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+}
+
+.btn-ads:hover::before {
+  left: 100%;
+}
+
+.btn-ads:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ads-counter {
+  margin-bottom: 16px;
+  padding: 20px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.counter-display {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.counter-label {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.progress-bar {
+  margin-top: 12px;
+  height: 8px;
+  background: var(--glass);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
 .input-wrapper {
   position: relative;
   margin-bottom: 16px;
@@ -143,137 +352,6 @@ input[type=text]:focus {
   border-color: var(--accent);
   background: rgba(0, 212, 255, 0.05);
   box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
-}
-
-.btn-primary {
-  width: 100%; 
-  padding: 16px; 
-  border: none; 
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
-  color: white; 
-  font-weight: 700; 
-  cursor: pointer;
-  font-size: 15px; 
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
-}
-
-.btn-primary:hover::before {
-  left: 100%;
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-}
-
-.btn-primary:disabled { 
-  opacity: 0.5; 
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-ads {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
-  position: relative;
-  overflow: hidden;
-  margin-top: 12px;
-}
-
-.btn-ads::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-ads:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
-}
-
-.btn-ads:hover::before {
-  left: 100%;
-}
-
-.btn-ads:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.ads-counter {
-  margin-top: 16px;
-  padding: 16px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: 16px;
-  text-align: center;
-}
-
-.counter-display {
-  font-size: 28px;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 8px;
-}
-
-.counter-label {
-  font-size: 13px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.progress-bar {
-  margin-top: 12px;
-  height: 8px;
-  background: var(--glass);
-  border-radius: 4px;
-  overflow: hidden;
-  border: 1px solid var(--glass-border);
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
-  transition: width 0.5s ease;
-  box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
 }
 
 .status {
@@ -364,28 +442,76 @@ input[type=text]:focus {
   border-color: var(--accent);
 }
 
-.info-box {
-  margin-top: 16px;
-  padding: 16px;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: 16px;
-  display: none;
-}
-
-.info-box.show {
-  display: block;
-  animation: slideIn 0.4s ease;
-}
-
-.info-text {
-  font-size: 14px;
-  color: var(--warning);
+.bypass-count {
   text-align: center;
-  line-height: 1.5;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
 }
 
-/* Responsive */
+.bypass-count-value {
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bypass-count-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.toggle-section {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.toggle-btn:hover {
+  color: var(--accent);
+  background: var(--glass);
+}
+
+.toggle-btn::before {
+  content: '▼ ';
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.toggle-btn.collapsed::before {
+  transform: rotate(-90deg);
+}
+
+.collapsible-section {
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.collapsible-section.hidden {
+  max-height: 0;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+}
+
 @media (max-width: 640px) {
   .card {
     padding: 28px 24px;
@@ -394,6 +520,10 @@ input[type=text]:focus {
   
   h1 {
     font-size: 28px;
+  }
+  
+  .slider-value {
+    font-size: 40px;
   }
 }
 
@@ -414,12 +544,12 @@ input[type=text]:focus {
     font-size: 14px;
   }
   
-  input[type=text], .btn-primary, .btn-ads {
-    font-size: 14px;
+  .slider-value {
+    font-size: 36px;
   }
   
-  .counter-display {
-    font-size: 24px;
+  .bypass-count-value {
+    font-size: 28px;
   }
 }
 </style>
@@ -430,29 +560,48 @@ input[type=text]:focus {
   <div class="card">
     <div class="header">
       <h1>Flazu Bypass</h1>
-      <p class="lead">View 10 ads to unlock 20 free bypasses</p>
+      <p class="lead">Choose your bypasses, watch ads, start bypassing</p>
     </div>
     
-    <div class="ads-counter">
-      <div class="counter-display" id="counterDisplay">0 / 10</div>
-      <div class="counter-label">Ads Viewed</div>
+    <div class="toggle-section">
+      <button id="toggleBtn" class="toggle-btn">Hide Bypass Manager</button>
+    </div>
+    
+    <div id="collapsibleSection" class="collapsible-section">
+      <div id="bypassCountDisplay" class="bypass-count">
+        <div class="bypass-count-value" id="bypassCountValue">0</div>
+        <div class="bypass-count-label">Bypasses Available</div>
+      </div>
+      
+      <div id="bypassSelector" class="bypass-selector">
+      <div class="selector-label">How many bypasses do you need?</div>
+      <div class="slider-value" id="sliderValue">10</div>
+      <div class="slider-sublabel">bypasses</div>
+      <input type="range" class="range-slider" id="bypassSlider" min="5" max="100" step="5" value="10">
+      <div class="ads-info">
+        <p class="ads-info-text">📺 Watch <span id="adsRequired">5</span> ads to unlock</p>
+      </div>
+    </div>
+    
+    <button id="confirmBtn" class="btn-primary">Start & Watch Ads</button>
+    
+    <div id="adsCounter" class="ads-counter" style="display: none;">
+      <div class="counter-display" id="counterDisplay">0 / 0</div>
+      <div class="counter-label">Ads Progress</div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill" style="width: 0%"></div>
       </div>
     </div>
     
-    <button id="viewAdsBtn" class="btn-ads">📺 View Ads</button>
-    
-    <div id="infoBox" class="info-box">
-      <p class="info-text">⚡ Click "View Ads" 10 times to unlock bypass feature!</p>
+    <button id="viewAdsBtn" class="btn-ads" style="display: none;">📺 View Ad (<span id="adsRemaining">0</span> left)</button>
     </div>
     
-    <div class="input-wrapper" style="margin-top: 20px;">
+    <div class="input-wrapper" id="bypassSection">
       <span class="input-icon">🔗</span>
-      <input id="urlInput" type="text" placeholder="Paste your link here..." aria-label="Link input" disabled>
+      <input id="urlInput" type="text" placeholder="Paste your link here..." aria-label="Link input">
     </div>
     
-    <button id="bypassBtn" class="btn-primary" disabled>🔒 Locked - View Ads First</button>
+    <button id="bypassBtn" class="btn-primary">🚀 Start Bypass</button>
     
     <div class="status">
       <div id="inlineSpinner" style="display:none"><span class="spinner"></span></div>
@@ -460,7 +609,7 @@ input[type=text]:focus {
     </div>
     
     <div id="outputBox" class="output">
-      <div class="output-label">Your Result</div>
+      <div class="output-label">✓ Bypass Result</div>
       <div id="outText" class="result">—</div>
       <button id="copyBtn" class="copy-btn">📋 Copy Result</button>
     </div>
@@ -468,78 +617,132 @@ input[type=text]:focus {
 </div>
 
 <script>
-// Ad counter system
-let adsViewed = parseInt(localStorage.getItem('adsViewed') || '0');
+// State
 let bypassesRemaining = parseInt(localStorage.getItem('bypassesRemaining') || '0');
+let adsViewed = 0;
+let adsRequired = 0;
+let pendingBypasses = 0;
 
+// Elements
+const bypassSelector = document.getElementById('bypassSelector');
+const confirmBtn = document.getElementById('confirmBtn');
 const viewAdsBtn = document.getElementById('viewAdsBtn');
-const counterDisplay = document.getElementById('counterDisplay');
-const progressFill = document.getElementById('progressFill');
 const bypassBtn = document.getElementById('bypassBtn');
 const urlInput = document.getElementById('urlInput');
-const infoBox = document.getElementById('infoBox');
+const adsCounter = document.getElementById('adsCounter');
+const counterDisplay = document.getElementById('counterDisplay');
+const progressFill = document.getElementById('progressFill');
+const bypassSection = document.getElementById('bypassSection');
+const bypassCountDisplay = document.getElementById('bypassCountDisplay');
+const bypassCountValue = document.getElementById('bypassCountValue');
 const inlineSpinner = document.getElementById('inlineSpinner');
 const statusText = document.getElementById('statusText');
 const outputBox = document.getElementById('outputBox');
 const outText = document.getElementById('outText');
 const copyBtn = document.getElementById('copyBtn');
+const adsRemainingSpan = document.getElementById('adsRemaining');
+const bypassSlider = document.getElementById('bypassSlider');
+const sliderValue = document.getElementById('sliderValue');
+const adsRequiredSpan = document.getElementById('adsRequired');
+const toggleBtn = document.getElementById('toggleBtn');
+const collapsibleSection = document.getElementById('collapsibleSection');
 
-// Initialize UI
-function updateUI() {
-  counterDisplay.textContent = `${Math.min(adsViewed, 10)} / 10`;
-  progressFill.style.width = `${Math.min((adsViewed / 10) * 100, 100)}%`;
-  
-  if (adsViewed >= 10 || bypassesRemaining > 0) {
-    bypassBtn.disabled = false;
-    bypassBtn.textContent = `🚀 Start Bypass (${bypassesRemaining} remaining)`;
-    urlInput.disabled = false;
-    viewAdsBtn.style.display = 'none';
-    infoBox.classList.remove('show');
-    // Hide ads counter when unlocked
-    document.querySelector('.ads-counter').style.display = 'none';
+// Toggle section
+let isCollapsed = false;
+toggleBtn.addEventListener('click', () => {
+  isCollapsed = !isCollapsed;
+  if (isCollapsed) {
+    collapsibleSection.classList.add('hidden');
+    toggleBtn.classList.add('collapsed');
+    toggleBtn.textContent = 'Show Bypass Manager';
   } else {
-    bypassBtn.disabled = true;
-    bypassBtn.textContent = '🔒 Locked - View Ads First';
-    urlInput.disabled = true;
-    infoBox.classList.add('show');
-    document.querySelector('.ads-counter').style.display = 'block';
+    collapsibleSection.classList.remove('hidden');
+    toggleBtn.classList.remove('collapsed');
+    toggleBtn.textContent = 'Hide Bypass Manager';
   }
+});
+
+// Initialize
+function updateUI() {
+  // Always show bypass count
+  bypassCountValue.textContent = bypassesRemaining;
   
-  if (adsViewed >= 10 && bypassesRemaining === 0) {
-    bypassesRemaining = 20;
-    localStorage.setItem('bypassesRemaining', '20');
-    statusText.textContent = '🎉 Unlocked 20 bypasses!';
-    statusText.style.color = 'var(--success)';
-    setTimeout(() => {
-      statusText.textContent = '';
-    }, 3000);
+  // Always show bypass selector
+  bypassSelector.style.display = 'block';
+  confirmBtn.style.display = 'block';
+  
+  // Show bypass section
+  bypassSection.style.display = 'block';
+  bypassBtn.style.display = 'block';
+  bypassBtn.disabled = bypassesRemaining === 0;
+  
+  if (adsRequired > 0) {
+    const remaining = adsRequired - adsViewed;
+    counterDisplay.textContent = `${adsViewed} / ${adsRequired}`;
+    progressFill.style.width = `${(adsViewed / adsRequired) * 100}%`;
+    adsRemainingSpan.textContent = remaining;
+    
+    if (remaining > 0) {
+      adsCounter.style.display = 'block';
+      viewAdsBtn.style.display = 'block';
+    } else {
+      // Unlock bypasses
+      bypassesRemaining += pendingBypasses;
+      localStorage.setItem('bypassesRemaining', bypassesRemaining.toString());
+      
+      adsCounter.style.display = 'none';
+      viewAdsBtn.style.display = 'none';
+      
+      statusText.textContent = `🎉 +${pendingBypasses} bypasses unlocked!`;
+      statusText.style.color = 'var(--success)';
+      setTimeout(() => statusText.textContent = '', 3000);
+      
+      adsRequired = 0;
+      adsViewed = 0;
+      pendingBypasses = 0;
+      
+      updateUI();
+    }
+  } else {
+    adsCounter.style.display = 'none';
+    viewAdsBtn.style.display = 'none';
   }
 }
 
 updateUI();
 
-// View ads button
-viewAdsBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+// Slider
+bypassSlider.addEventListener('input', (e) => {
+  const value = parseInt(e.target.value);
+  sliderValue.textContent = value;
+  const ads = Math.ceil(value / 2);
+  adsRequiredSpan.textContent = ads;
+});
+
+// Confirm button
+confirmBtn.addEventListener('click', () => {
+  pendingBypasses = parseInt(bypassSlider.value);
+  adsRequired = Math.ceil(pendingBypasses / 2);
+  adsViewed = 0;
+  updateUI();
+});
+
+// View ads
+viewAdsBtn.addEventListener('click', () => {
+  if (adsViewed >= adsRequired) return;
   
-  if (adsViewed >= 10) return;
-  
-  // Open ad links
   window.open('https://www.effectivegatecpm.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
   setTimeout(() => {
     window.open('https://chapturnjut.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
   }, 300);
   
   adsViewed++;
-  localStorage.setItem('adsViewed', adsViewed.toString());
   
-  // Visual feedback
   viewAdsBtn.textContent = `✓ Ad ${adsViewed} Viewed!`;
   viewAdsBtn.disabled = true;
   
   setTimeout(() => {
-    viewAdsBtn.textContent = '📺 View Ads';
+    viewAdsBtn.textContent = `📺 View Ad (${adsRequired - adsViewed} left)`;
     viewAdsBtn.disabled = false;
     updateUI();
   }, 2000);
@@ -547,7 +750,7 @@ viewAdsBtn.addEventListener('click', (e) => {
   updateUI();
 });
 
-// Bypass button
+// Bypass
 bypassBtn.addEventListener('click', () => {
   const val = urlInput.value.trim();
   if (!val) {
@@ -564,7 +767,7 @@ bypassBtn.addEventListener('click', () => {
   }
   
   if (bypassesRemaining <= 0) {
-    alert('No bypasses remaining! View more ads to unlock.');
+    alert('No bypasses remaining!');
     return;
   }
   
@@ -574,9 +777,9 @@ bypassBtn.addEventListener('click', () => {
 async function startBypass() {
   bypassBtn.disabled = true;
   inlineSpinner.style.display = 'inline-block';
-  statusText.textContent = 'Calling bypass API...';
+  statusText.textContent = 'Processing...';
+  statusText.style.color = 'var(--muted)';
   outputBox.style.display = 'none';
-  outText.textContent = '';
   const url = urlInput.value.trim();
   
   try {
@@ -584,7 +787,9 @@ async function startBypass() {
     const resp = await fetch(`https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`);
     const t1 = performance.now();
     const elapsed = Math.round(t1 - t0);
+    
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    
     const text = await resp.text();
     let parsed;
     try { parsed = JSON.parse(text); } catch { parsed = null; }
@@ -592,48 +797,38 @@ async function startBypass() {
     
     outText.textContent = result;
     outputBox.style.display = 'block';
-    statusText.textContent = `✓ Success — ${elapsed}ms`;
+    statusText.textContent = `✓ Success in ${elapsed}ms`;
     statusText.style.color = 'var(--success)';
     
-    // Decrease bypass count
     bypassesRemaining--;
     localStorage.setItem('bypassesRemaining', bypassesRemaining.toString());
-    
-    if (bypassesRemaining === 0) {
-      adsViewed = 0;
-      localStorage.setItem('adsViewed', '0');
-      setTimeout(() => {
-        alert('All bypasses used! View 10 more ads to unlock 20 new bypasses.');
-        viewAdsBtn.style.display = 'block';
-        document.querySelector('.ads-counter').style.display = 'block';
-      }, 1000);
-    }
     
     updateUI();
   } catch (err) {
     outText.textContent = `Error: ${err.message || err}`;
     outputBox.style.display = 'block';
-    statusText.textContent = '✗ Request failed';
+    statusText.textContent = '✗ Failed';
     statusText.style.color = 'var(--error)';
   } finally {
     inlineSpinner.style.display = 'none';
     bypassBtn.disabled = false;
-    updateUI();
   }
 }
 
+// Copy
 copyBtn.addEventListener('click', () => {
   const text = outText.textContent;
   navigator.clipboard.writeText(text).then(() => {
     copyBtn.textContent = '✓ Copied!';
     setTimeout(() => copyBtn.textContent = '📋 Copy Result', 1400);
   }).catch(() => {
-    alert('Unable to copy automatically — select and copy manually.');
+    alert('Unable to copy.');
   });
 });
 
+// Enter key
 window.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !bypassBtn.disabled && urlInput.value.trim()) {
+  if (e.key === 'Enter' && bypassBtn.style.display !== 'none' && urlInput.value.trim()) {
     bypassBtn.click();
   }
 });
