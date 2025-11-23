@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flazu Bypass</title>
 <style>
-/* Styles kept identical except ad/selector areas removed */
 :root {
   --accent: #00d4ff;
   --accent-dark: #00a3cc;
@@ -16,110 +16,822 @@
   --muted: #94a3b8;
   --success: #10b981;
   --error: #ef4444;
+  --warning: #f59e0b;
   --gradient-1: #00d4ff;
   --gradient-2: #7c3aed;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",sans-serif;
-  background:linear-gradient(135deg,#0a0e14 0%,#1a1f2e 100%);
-  color:var(--text);
-  display:flex;justify-content:center;align-items:center;
-  min-height:100vh;padding:20px;overflow-x:hidden;
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
 }
-.container{max-width:480px;width:100%}
-.card{
-  background:var(--card-bg);backdrop-filter:blur(24px);
-  border-radius:24px;padding:40px;
-  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px var(--glass-border);
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+  background: linear-gradient(135deg, #0a0e14 0%, #1a1f2e 100%);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
 }
-.header{text-align:center;margin-bottom:32px}
-h1{
-  font-size:32px;font-weight:800;
-  background:linear-gradient(135deg,var(--gradient-1),var(--gradient-2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+
+body::before {
+  content: '';
+  position: fixed;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+  animation: floatBackground 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
 }
-.lead{color:var(--muted);margin-top:8px}
-.input-wrapper{position:relative;margin-bottom:16px}
-.input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted)}
-input[type=text]{width:100%;padding:16px 16px 16px 48px;border-radius:16px;border:1px solid var(--glass-border);background:var(--glass);color:var(--text)}
-.btn-primary{
-  width:100%;padding:16px;border:none;border-radius:16px;
-  background:linear-gradient(135deg,var(--gradient-1),var(--gradient-2));
-  color:#fff;font-weight:700;font-size:15px;margin-top:10px;cursor:pointer;
+
+@keyframes floatBackground {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(5deg); }
+  66% { transform: translate(-20px, 20px) rotate(-5deg); }
 }
-.status{margin-top:16px;text-align:center}
-.output{display:none;margin-top:24px;padding:20px;background:var(--glass);border-radius:16px;border:1px solid var(--glass-border)}
-.result{word-break:break-all;background:rgba(0,0,0,.3);padding:12px;border-radius:10px}
-.copy-btn{width:100%;margin-top:10px;padding:12px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);color:var(--accent);cursor:pointer}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--glass-border),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+h1 { 
+  font-size: 32px; 
+  font-weight: 800; 
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.lead { 
+  font-size: 15px; 
+  color: var(--muted); 
+  line-height: 1.5;
+}
+
+.bypass-selector {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+.selector-label {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.slider-value {
+  font-size: 48px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.slider-sublabel {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.range-slider {
+  width: 100%;
+  appearance: none;
+  height: 10px;
+  background: var(--glass);
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid var(--glass-border);
+}
+
+.range-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.range-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.5);
+}
+
+.ads-info {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.ads-info-text {
+  font-size: 14px;
+  color: var(--warning);
+  font-weight: 600;
+}
+
+.btn-primary {
+  width: 100%; 
+  padding: 16px; 
+  border: none; 
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  color: white; 
+  font-weight: 700; 
+  cursor: pointer;
+  font-size: 15px; 
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:disabled { 
+  opacity: 0.5; 
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-ads {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ads::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-ads:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.4);
+}
+
+.btn-ads:hover::before {
+  left: 100%;
+}
+
+.btn-ads:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.ads-counter {
+  margin-bottom: 16px;
+  padding: 20px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  text-align: center;
+}
+
+.counter-display {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.counter-label {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.progress-bar {
+  margin-top: 12px;
+  height: 8px;
+  background: var(--glass);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.5);
+}
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 18px;
+}
+
+input[type=text] {
+  width: 100%; 
+  padding: 16px 16px 16px 48px; 
+  border-radius: 16px; 
+  border: 1px solid var(--glass-border);
+  background: var(--glass); 
+  color: var(--text); 
+  font-size: 15px; 
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+input[type=text]::placeholder { 
+  color: var(--muted); 
+}
+
+input[type=text]:focus { 
+  border-color: var(--accent);
+  background: rgba(0, 212, 255, 0.05);
+  box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+}
+
+.status {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+}
+
+.status-text {
+  margin-left: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.output {
+  display: none;
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.output-label {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.result {
+  font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+  word-break: break-all;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.copy-btn {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  width: 100%;
+  background: var(--glass);
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.copy-btn:hover {
+  background: rgba(0, 212, 255, 0.1);
+  border-color: var(--accent);
+}
+
+.bypass-count {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+}
+
+.bypass-count-value {
+  font-size: 36px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bypass-count-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.toggle-section {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.toggle-btn:hover {
+  color: var(--accent);
+  background: var(--glass);
+}
+
+.toggle-btn::before {
+  content: '▼ ';
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.toggle-btn.collapsed::before {
+  transform: rotate(-90deg);
+}
+
+.collapsible-section {
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.collapsible-section.hidden {
+  max-height: 0;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 28px 24px;
+    border-radius: 20px;
+  }
+  
+  h1 {
+    font-size: 28px;
+  }
+  
+  .slider-value {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 16px;
+  }
+  
+  .card {
+    padding: 24px 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .lead {
+    font-size: 14px;
+  }
+  
+  .slider-value {
+    font-size: 36px;
+  }
+  
+  .bypass-count-value {
+    font-size: 28px;
+  }
+}
 </style>
 </head>
 <body>
+
 <div class="container">
   <div class="card">
     <div class="header">
       <h1>Flazu Bypass</h1>
-      <p class="lead">supports delta</p>
-    </div><div class="input-wrapper">
-  <span class="input-icon">🔗</span>
-  <input id="urlInput" type="text" placeholder="Paste your link here...">
-</div>
-
-<button id="bypassBtn" class="btn-primary">🚀 Start Bypass</button>
-
-<div class="status">
-  <span id="statusText"></span>
-</div>
-
-<div id="outputBox" class="output">
-  <div class="result" id="outText">—</div>
-  <button id="copyBtn" class="copy-btn">📋 Copy</button>
-</div>
-
+      <p class="lead">Choose your bypasses, watch ads, start bypassing</p>
+    </div>
+    
+    <div class="toggle-section">
+      <button id="toggleBtn" class="toggle-btn">Hide Bypass Manager</button>
+    </div>
+    
+    <div id="collapsibleSection" class="collapsible-section">
+      <div id="bypassCountDisplay" class="bypass-count">
+        <div class="bypass-count-value" id="bypassCountValue">0</div>
+        <div class="bypass-count-label">Bypasses Available</div>
+      </div>
+      
+      <div id="bypassSelector" class="bypass-selector">
+      <div class="selector-label">How many bypasses do you need?</div>
+      <div class="slider-value" id="sliderValue">10</div>
+      <div class="slider-sublabel">bypasses</div>
+      <input type="range" class="range-slider" id="bypassSlider" min="5" max="100" step="5" value="10">
+      <div class="ads-info">
+        <p class="ads-info-text">📺 Watch <span id="adsRequired">1</span> ads to unlock</p>
+      </div>
+    </div>
+    
+    <button id="confirmBtn" class="btn-primary">Start & Watch Ads</button>
+    
+    <div id="adsCounter" class="ads-counter" style="display: none;">
+      <div class="counter-display" id="counterDisplay">0 / 0</div>
+      <div class="counter-label">Ads Progress</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+    </div>
+    
+    <button id="viewAdsBtn" class="btn-ads" style="display: none;">📺 View Ad (<span id="adsRemaining">0</span> left)</button>
+    </div>
+    
+    <div class="input-wrapper" id="bypassSection">
+      <span class="input-icon">🔗</span>
+      <input id="urlInput" type="text" placeholder="Paste your link here..." aria-label="Link input">
+    </div>
+    
+    <button id="bypassBtn" class="btn-primary">🚀 Start Bypass</button>
+    
+    <div class="status">
+      <div id="inlineSpinner" style="display:none"><span class="spinner"></span></div>
+      <span id="statusText" class="status-text"></span>
+    </div>
+    
+    <div id="outputBox" class="output">
+      <div class="output-label">✓ Bypass Result</div>
+      <div id="outText" class="result">—</div>
+      <button id="copyBtn" class="copy-btn">📋 Copy Result</button>
+    </div>
   </div>
-</div><script>
-// Free unlimited version — no ads, no counters
-const bypassBtn = document.getElementById("bypassBtn");
-const urlInput = document.getElementById("urlInput");
-const statusText = document.getElementById("statusText");
-const outputBox = document.getElementById("outputBox");
-const outText = document.getElementById("outText");
-const copyBtn = document.getElementById("copyBtn");
+</div>
 
-bypassBtn.addEventListener("click", () => {
-  const link = urlInput.value.trim();
-  if (!link) return alert("Enter a link first.");
-  try { new URL(link); } catch { return alert("Invalid link."); }
-  startBypass(link);
+<script>
+// State
+let bypassesRemaining = parseInt(localStorage.getItem('bypassesRemaining') || '0');
+let adsViewed = 0;
+let adsRequired = 0;
+let pendingBypasses = 0;
+
+// Elements
+const bypassSelector = document.getElementById('bypassSelector');
+const confirmBtn = document.getElementById('confirmBtn');
+const viewAdsBtn = document.getElementById('viewAdsBtn');
+const bypassBtn = document.getElementById('bypassBtn');
+const urlInput = document.getElementById('urlInput');
+const adsCounter = document.getElementById('adsCounter');
+const counterDisplay = document.getElementById('counterDisplay');
+const progressFill = document.getElementById('progressFill');
+const bypassSection = document.getElementById('bypassSection');
+const bypassCountDisplay = document.getElementById('bypassCountDisplay');
+const bypassCountValue = document.getElementById('bypassCountValue');
+const inlineSpinner = document.getElementById('inlineSpinner');
+const statusText = document.getElementById('statusText');
+const outputBox = document.getElementById('outputBox');
+const outText = document.getElementById('outText');
+const copyBtn = document.getElementById('copyBtn');
+const adsRemainingSpan = document.getElementById('adsRemaining');
+const bypassSlider = document.getElementById('bypassSlider');
+const sliderValue = document.getElementById('sliderValue');
+const adsRequiredSpan = document.getElementById('adsRequired');
+const toggleBtn = document.getElementById('toggleBtn');
+const collapsibleSection = document.getElementById('collapsibleSection');
+
+// Toggle section
+let isCollapsed = false;
+toggleBtn.addEventListener('click', () => {
+  isCollapsed = !isCollapsed;
+  if (isCollapsed) {
+    collapsibleSection.classList.add('hidden');
+    toggleBtn.classList.add('collapsed');
+    toggleBtn.textContent = 'Show Bypass Manager';
+  } else {
+    collapsibleSection.classList.remove('hidden');
+    toggleBtn.classList.remove('collapsed');
+    toggleBtn.textContent = 'Hide Bypass Manager';
+  }
 });
 
-async function startBypass(url){
-  statusText.textContent = "Processing...";
-  outputBox.style.display = "none";
-
-  try{
-    const resp = await fetch(`https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`);
-    if(!resp.ok) throw new Error("Server error");
-
-    const text = await resp.text();
-    let parsed;
-    try{ parsed = JSON.parse(text);}catch{}
-
-    const result = (parsed && (parsed.url||parsed.result||parsed.key)) || text;
-    outText.textContent = result;
-    outputBox.style.display = "block";
-    statusText.textContent = "Done ✓";
-  }catch(err){
-    outText.textContent = "Error: " + err.message;
-    outputBox.style.display = "block";
-    statusText.textContent = "Failed ✗";
+// Initialize
+function updateUI() {
+  // Always show bypass count
+  bypassCountValue.textContent = bypassesRemaining;
+  
+  // Always show bypass selector
+  bypassSelector.style.display = 'block';
+  confirmBtn.style.display = 'block';
+  
+  // Show bypass section
+  bypassSection.style.display = 'block';
+  bypassBtn.style.display = 'block';
+  bypassBtn.disabled = bypassesRemaining === 0;
+  
+  if (adsRequired > 0) {
+    const remaining = adsRequired - adsViewed;
+    counterDisplay.textContent = `${adsViewed} / ${adsRequired}`;
+    progressFill.style.width = `${(adsViewed / adsRequired) * 100}%`;
+    adsRemainingSpan.textContent = remaining;
+    
+    if (remaining > 0) {
+      adsCounter.style.display = 'block';
+      viewAdsBtn.style.display = 'block';
+    } else {
+      // Unlock bypasses
+      bypassesRemaining += pendingBypasses;
+      localStorage.setItem('bypassesRemaining', bypassesRemaining.toString());
+      
+      adsCounter.style.display = 'none';
+      viewAdsBtn.style.display = 'none';
+      
+      statusText.textContent = `🎉 +${pendingBypasses} bypasses unlocked!`;
+      statusText.style.color = 'var(--success)';
+      setTimeout(() => statusText.textContent = '', 3000);
+      
+      adsRequired = 0;
+      adsViewed = 0;
+      pendingBypasses = 0;
+      
+      updateUI();
+    }
+  } else {
+    adsCounter.style.display = 'none';
+    viewAdsBtn.style.display = 'none';
   }
 }
 
-copyBtn.addEventListener("click",()=>{
-  navigator.clipboard.writeText(outText.textContent);
-  copyBtn.textContent = "✓ Copied";
-  setTimeout(()=>copyBtn.textContent="📋 Copy",1200);
+updateUI();
+
+// Slider
+bypassSlider.addEventListener('input', (e) => {
+  const value = parseInt(e.target.value);
+  sliderValue.textContent = value;
+  const ads = Math.ceil(value / 15); // 1 ad = 15 bypasses
+  adsRequiredSpan.textContent = ads;
 });
-</script></body>
+
+// Confirm button
+confirmBtn.addEventListener('click', () => {
+  pendingBypasses = parseInt(bypassSlider.value);
+  adsRequired = Math.ceil(pendingBypasses / 15); // 1 ad = 15 bypasses
+  adsViewed = 0;
+  updateUI();
+});
+
+// View ads
+viewAdsBtn.addEventListener('click', () => {
+  if (adsViewed >= adsRequired) return;
+  
+  window.open('https://www.effectivegatecpm.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
+  setTimeout(() => {
+    window.open('https://chapturnjut.com/rzauktsv?key=97b6485e5484d25c0b005069ac01cf3a', '_blank', 'noopener,noreferrer');
+  }, 300);
+  
+  adsViewed++;
+  
+  viewAdsBtn.textContent = `✓ Ad ${adsViewed} Viewed!`;
+  viewAdsBtn.disabled = true;
+  
+  setTimeout(() => {
+    viewAdsBtn.textContent = `📺 View Ad (${adsRequired - adsViewed} left)`;
+    viewAdsBtn.disabled = false;
+    updateUI();
+  }, 2000);
+  
+  updateUI();
+});
+
+// Bypass
+bypassBtn.addEventListener('click', () => {
+  const val = urlInput.value.trim();
+  if (!val) {
+    alert('Please paste a link first.');
+    urlInput.focus();
+    return;
+  }
+  try {
+    new URL(val);
+  } catch {
+    alert('Please enter a valid URL.');
+    urlInput.focus();
+    return;
+  }
+  
+  if (bypassesRemaining <= 0) {
+    alert('No bypasses remaining!');
+    return;
+  }
+  
+  startBypass();
+});
+
+async function startBypass() {
+  bypassBtn.disabled = true;
+  inlineSpinner.style.display = 'inline-block';
+  statusText.textContent = 'Processing...';
+  statusText.style.color = 'var(--muted)';
+  outputBox.style.display = 'none';
+  const url = urlInput.value.trim();
+  
+  try {
+    const t0 = performance.now();
+    const resp = await fetch(`https://bypass.flazu.my/v1/free/bypass?link=${encodeURIComponent(url)}`);
+    const t1 = performance.now();
+    const elapsed = Math.round(t1 - t0);
+    
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    
+    const text = await resp.text();
+    let parsed;
+    try { parsed = JSON.parse(text); } catch { parsed = null; }
+    const result = (parsed && (parsed.url || parsed.key || parsed.result)) || text || 'No result';
+    
+    outText.textContent = result;
+    outputBox.style.display = 'block';
+    statusText.textContent = `✓ Success in ${elapsed}ms`;
+    statusText.style.color = 'var(--success)';
+    
+    bypassesRemaining--;
+    localStorage.setItem('bypassesRemaining', bypassesRemaining.toString());
+    
+    updateUI();
+  } catch (err) {
+    outText.textContent = `Error: ${err.message || err}`;
+    outputBox.style.display = 'block';
+    statusText.textContent = '✗ Failed';
+    statusText.style.color = 'var(--error)';
+  } finally {
+    inlineSpinner.style.display = 'none';
+    bypassBtn.disabled = false;
+  }
+}
+
+// Copy
+copyBtn.addEventListener('click', () => {
+  const text = outText.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    copyBtn.textContent = '✓ Copied!';
+    setTimeout(() => copyBtn.textContent = '📋 Copy Result', 1400);
+  }).catch(() => {
+    alert('Unable to copy.');
+  });
+});
+
+// Enter key
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && bypassBtn.style.display !== 'none' && urlInput.value.trim()) {
+    bypassBtn.click();
+  }
+});
+</script>
+</body>
 </html>
